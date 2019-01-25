@@ -3,26 +3,35 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Master stack: PathToMasterStackFile'
 
 Parameters:
-  BranchName:
-    Default: BranchName
-    Description: Choose which Branch do you want to use
+  KeyName:
+      Description: Name of an existing EC2 KeyPair to enable SSH access to the web server
+      Type: AWS::EC2::KeyPair::KeyName
+      ConstraintDescription: must be the name of an existing EC2 KeyPair.
+
+  InstanceType:
+    Description: WebServer EC2 instance type
     Type: String
-  Customer:
-    Description: is used as Customer tag value for all resources
+    Default: t2.small
+    AllowedValues: [t1.micro, t2.nano, t2.micro, t2.small, t2.medium, t2.large, m1.small,
+      m1.medium, m1.large, m1.xlarge, m2.xlarge, m2.2xlarge, m2.4xlarge, m3.medium,
+      m3.large, m3.xlarge, m3.2xlarge, m4.large, m4.xlarge, m4.2xlarge, m4.4xlarge,
+      m4.10xlarge, c1.medium, c1.xlarge, c3.large, c3.xlarge, c3.2xlarge, c3.4xlarge,
+      c3.8xlarge, c4.large, c4.xlarge, c4.2xlarge, c4.4xlarge, c4.8xlarge, g2.2xlarge,
+      g2.8xlarge, r3.large, r3.xlarge, r3.2xlarge, r3.4xlarge, r3.8xlarge, i2.xlarge,
+      i2.2xlarge, i2.4xlarge, i2.8xlarge, d2.xlarge, d2.2xlarge, d2.4xlarge, d2.8xlarge,
+      hi1.4xlarge, hs1.8xlarge, cr1.8xlarge, cc2.8xlarge, cg1.4xlarge]
+    ConstraintDescription: must be a valid EC2 instance type.
+
+  SSHLocation:
+    Description: Lockdown SSH access to the bastion host (default can be accessed
+      from anywhere)
     Type: String
-    Default: Customer
-    AllowedPattern: ^[A-Za-z0-9]*$
-    ConstraintDescription: must contain only alphanumeric characters and numbers.
-    MaxLength: 20
-    MinLength: 1
-  CustomerProject:
-    Description: is used as Customer project tag value for all resources
-    Type: String
-    Default: CustomerProject
-    AllowedPattern: ^[A-Za-z0-9]*$
-    ConstraintDescription: must contain only alphanumeric characters and numbers.
-    MaxLength: 20
-    MinLength: 1
+    MinLength: '9'
+    MaxLength: '18'
+    Default: 0.0.0.0/0
+    AllowedPattern: (\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})
+    ConstraintDescription: must be a valid CIDR range of the form x.x.x.x/x.
+
   Environment:
     Description: Environment to deploy. Use staging for limited resources and no alerts.
     Type: String
@@ -31,24 +40,32 @@ Parameters:
     - Staging
     - Production
 
-Metadata:
-  AWS::CloudFormation::Interface:
-    ParameterGroups:
-    - Label:
-        default: Tagging and billing
-      Parameters:
-      - Customer
-      - CustomerProject
-    - Label:
-        default: Choose Branch and Environment
-      Parameters:
-      - Environment
-      - BranchName
-
 Mappings:
-
+  AWSRegionAMI:
+    ap-southeast-2:
+      'AMI': ami-43851279
+    
 Resources:
+  Ec2Instance: 
+      Type: AWS::EC2::Instance
+      Properties: 
+        ImageId: 
+          Fn::FindInMap: 
+            - "AWSRegionAMI"
+            - Ref: "AWS::Region"
+            - "AMI"
+        KeyName: 
+          Ref: "KeyName"
+        NetworkInterfaces: 
+          - AssociatePublicIpAddress: "true"
+            DeviceIndex: "0"
+            GroupSet: 
+              - Ref: "myVPCEC2SecurityGroup"
+            SubnetId: 
+              Ref: "PublicSubnet" # Need to define this and the rest of the VPC
   
 
 Outputs:
-  PathToMasterStackFile
+  EC2InstanceId:
+    Value: !Ref Ec2Instance
+    Desacription: Test EC2 Instance ID
