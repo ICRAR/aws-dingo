@@ -31,6 +31,20 @@ Parameters:
     - Staging
     - Production
 
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: Tagging and billing
+      Parameters:
+      - Customer
+      - CustomerProject
+    - Label:
+        default: Choose Branch and Environment
+      Parameters:
+      - Environment
+      - BranchName
+
 Mappings:
 
 Resources:
