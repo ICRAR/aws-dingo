@@ -46,23 +46,26 @@ Mappings:
       'AMI': ami-43851279
     
 Resources:
-  Ec2Instance: 
+  EC2Instance:
       Type: AWS::EC2::Instance
-      Properties: 
-        ImageId: 
-          Fn::FindInMap: 
-            - "AWSRegionAMI"
-            - Ref: "AWS::Region"
-            - "AMI"
-        KeyName: 
-          Ref: "KeyName"
-        NetworkInterfaces: 
-          - AssociatePublicIpAddress: "true"
-            DeviceIndex: "0"
-            GroupSet: 
-              - Ref: "myVPCEC2SecurityGroup"
-            SubnetId: 
-              Ref: "PublicSubnet" # Need to define this and the rest of the VPC
+      Properties:
+        KeyName: !Ref 'KeyName'
+        InstanceType: !Ref 'InstanceType'
+        ImageId: !FindInMap [AWSRegionArch2AMI, !Ref 'AWS::Region', !FindInMap [AWSInstanceType2Arch,
+            !Ref 'InstanceType', Arch]]
+        SecurityGroups: [!Ref 'EC2SecurityGroup']
+        BlockDeviceMappings:
+        - DeviceName: /dev/sdc
+          VirtualName: ephemeral0
+    EC2SecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: SSH access
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: !Ref 'SSHLocation'
   
 
 Outputs:
