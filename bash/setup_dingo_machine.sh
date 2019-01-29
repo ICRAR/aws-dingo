@@ -9,3 +9,6 @@ sudo apt-get update
 sudo apt-get --yes install docker-ce
 
 sudo docker pull sord/askapsoft:initial
+
+git clone https://github.com/ICRAR/aws-dingo.git
+
