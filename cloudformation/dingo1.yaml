@@ -24,8 +24,7 @@ Parameters:
     Description: Enter i3.xlarge, i3.2xlarge, i3.4xlarge or i3.8xlarge. Default is i3.2xlarge.
 
   SSHLocation:
-    Description: Lockdown SSH access to the bastion host (default can be accessed
-      from anywhere)
+    Description: Lockdown SSH access to the bastion host (default can be accessed from anywhere)
     Type: String
     MinLength: '9'
     MaxLength: '18'
@@ -70,15 +69,39 @@ Resources:
         - DeviceName: /dev/sdi
           VirtualName: ephemeral7
 
-    EC2SecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      Properties:
-        GroupDescription: SSH access
-        SecurityGroupIngress:
-          - IpProtocol: tcp
-            FromPort: '22'
-            ToPort: '22'
-            CidrIp: !Ref 'SSHLocation'
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SSH access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: !Ref 'SSHLocation'
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 172.31.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+# SQS
+
+# AutoScaling based on SQS queue length
+
+# CloudWatch
+
 
 Outputs:
   EC2InstanceId:
