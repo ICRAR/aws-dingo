@@ -8,7 +8,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get --yes install docker-ce
 
-sudo docker pull sord/askapsoft:initial
+sudo docker pull sord/askapsoft:with_mssplit
 
 git clone https://github.com/ICRAR/aws-dingo.git
 
