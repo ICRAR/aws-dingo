@@ -9,7 +9,8 @@
 # ##    ##  #######     ##    ########
 #
 #
-yum -y update
+apt -y update
+apt -y upgrade
 
 # Print into the logs the disk free
 df -h
@@ -68,18 +69,11 @@ if [[ -b "/dev/nvme0n1" ]]; then
 elif [[ -b "/dev/xvdb" ]]; then
   METADATA_URL_BASE="http://169.254.169.254/latest"
 
-  yum -y -d0 install docker-storage-setup curl
-
   # Configure Raid if needed - taking into account xvdb or sdb
   root_drive=`df -h | grep -v grep | awk 'NR==2{print $1}'`
 
-  if [[ "$root_drive" == "/dev/xvda1" ]]; then
-    echo "Detected 'xvd' drive naming scheme (root: $root_drive)"
-    DRIVE_SCHEME='xvd'
-  else
-    echo "Detected 'sd' drive naming scheme (root: $root_drive)"
-    DRIVE_SCHEME='sd'
-  fi
+  echo "Detected 'xvd' drive naming scheme (root: $root_drive)"
+  DRIVE_SCHEME='xvd'
 
   # figure out how many ephemerals we have by querying the metadata API, and then:
   #  - convert the drive name returned from the API to the hosts DRIVE_SCHEME, if necessary
