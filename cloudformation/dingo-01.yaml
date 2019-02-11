@@ -13,7 +13,7 @@ Parameters:
     Type: AWS::EC2::KeyPair::KeyName
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
 
-  InstanceTypeParameter:
+  InstanceType:
     Type: String
     Default: i3.2xlarge
     AllowedValues:
@@ -49,7 +49,7 @@ Resources:
     Properties:
       KeyName: !Ref 'KeyName'
       InstanceType: !Ref 'InstanceType'
-      ImageId: !FindInMap [AWSRegionArch2AMI, !Ref 'AWS::Region', !FindInMap [AWSInstanceType2Arch, !Ref 'InstanceType', Arch]]
+      ImageId: !FindInMap [AWSRegionAMI, !Ref 'AWS::Region', !FindInMap [AWSInstanceType2Arch, !Ref 'InstanceType', Arch]]
       SecurityGroups: [!Ref 'EC2SecurityGroup']
       BlockDeviceMappings:
         - DeviceName: /dev/sdb
@@ -105,5 +105,5 @@ Resources:
 
 Outputs:
   EC2InstanceId:
-    Value: !Ref Ec2Instance
+    Value: !Ref EC2Instance
     Description: Test EC2 Instance ID
