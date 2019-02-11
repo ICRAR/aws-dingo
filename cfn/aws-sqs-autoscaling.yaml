@@ -3,33 +3,33 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Master stack: PathToMasterStackFile'
 
 Parameters:
-  BranchName:
-    Default: BranchName
-    Description: Choose which Branch do you want to use
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the web server
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+
+  DingoInstanceType:
+    Description: Enter d2.2xlarge, d2.4xlarge or d3.8xlarge. Default is d3.2xlarge.
     Type: String
-  Customer:
-    Description: is used as Customer tag value for all resources
-    Type: String
-    Default: Customer
-    AllowedPattern: ^[A-Za-z0-9]*$
-    ConstraintDescription: must contain only alphanumeric characters and numbers.
-    MaxLength: 20
-    MinLength: 1
-  CustomerProject:
-    Description: is used as Customer project tag value for all resources
-    Type: String
-    Default: CustomerProject
-    AllowedPattern: ^[A-Za-z0-9]*$
-    ConstraintDescription: must contain only alphanumeric characters and numbers.
-    MaxLength: 20
-    MinLength: 1
-  Environment:
-    Description: Environment to deploy. Use staging for limited resources and no alerts.
-    Type: String
-    Default: Staging
+    Default: d2.2xlarge
     AllowedValues:
-    - Staging
-    - Production
+      - d2.2xlarge
+      - d2.4xlarge
+      - d2.8xlarge
+
+  ICRARVPCID:
+    Description: ICRAR VCP ID
+    Type: AWS::EC2::VPC::Id
+
+  AlarmEmail:
+    Description: Emnail address to send autoscaling alarms to
+    Type: String
+    Default: sliedig@amazon.com
+
+Mappings:
+  AskapSoftAMIRegionMappinfg:
+    ap-southeast-2:
+      'AMI': ami-0c9d48b5db609ad6e
 
 Resources:
   DingoQueue: 
@@ -64,41 +64,96 @@ Resources:
   WebServerGroup: 
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties: 
-      AvailabilityZones: !GetAZs {}
-        Fn::GetAZs: ""
+      AvailabilityZones: 
+        Fn::GetAZs: 
+          Ref: "AWS::Region"
       LaunchConfigurationName: 
-        Ref: "LaunchConfig"
-      MinSize: "2"
-      MaxSize: "2"
-      LoadBalancerNames: 
-        - Ref: "ElasticLoadBalancer"
-      MetricsCollection: 
-        - Granularity: "1Minute"
-          Metrics: 
-            - "GroupMinSize"
-            - "GroupMaxSize"
+        !Ref DingoLaunchConfig
+      MinSize: "1"
+      MaxSize: "1"
 
-  LaunchConfig:
+  DingoLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
-      AssociatePublicIpAddress: Boolean
       BlockDeviceMappings:
-        - BlockDeviceMapping
-      EbsOptimized: Boolean
-      IamInstanceProfile: String
-      ImageId: String
-      InstanceId: String
-      InstanceMonitoring: Boolean
-      InstanceType: String
+        - DeviceName: /dev/sdb
+          VirtualName: ephemeral0
+        - DeviceName: /dev/sdc
+          VirtualName: ephemeral1
+        - DeviceName: /dev/sdd
+          VirtualName: ephemeral2
+        - DeviceName: /dev/sde
+          VirtualName: ephemeral3
+        - DeviceName: /dev/sdf
+          VirtualName: ephemeral4
+        - DeviceName: /dev/sdg
+          VirtualName: ephemeral5
+        - DeviceName: /dev/sdh
+          VirtualName: ephemeral6
+        - DeviceName: /dev/sdi
+          VirtualName: ephemeral7
+      IamInstanceProfile: !Ref DingoInstanceProfile
+      ImageId: !FindInMap ["AskapSoftAMIRegionMappinfg", !Ref "AWS::Region", "AMI"]
+      InstanceType: !Ref DingoInstanceType
       KernelId: String
       KeyName: String
       LaunchConfigurationName: String
-      PlacementTenancy: String
       RamDiskId: String
       SecurityGroups:
-        - SecurityGroup
-      SpotPrice: String
-      UserData: String
+        - !Ref DingoInstanceSecurityGroup
+      # UserData:
 
-Outputs:
+  DingoInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      Path: "/"
+      Roles:
+        - !Ref DingoRole
+
+  DingoRole:
+      Type: "AWS::IAM::Role"
+      Properties: 
+        AssumeRolePolicyDocument: 
+          Version: "2012-10-17"
+          Statement: 
+            - 
+              Effect: "Allow"
+              Principal: 
+                Service: 
+                  - "ec2.amazonaws.com"
+              Action: 
+                - "sts:AssumeRole"
+        Path: "/"
+        Policies: 
+          - 
+            PolicyName: "root"
+            PolicyDocument: 
+              Version: '2012-10-17'
+              Statement:
+                - 
+                  Action: 's3:*'
+                  Effect: Allow
+                  Resource: '*'
+
+
+  DingoInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref ICRARVPCID
+      GroupName: dingo_instance_security_group     
+      GroupDescription: Group for the DINGO code
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+
+  # DingoSpotFleet:
+  #   Type: AWS::EC2::SpotFleet
+  #   Properties: 
+  #     SpotFleetRequestConfigData:
+  #       SpotFleetRequestConfigData
+
+#Outputs:
   
