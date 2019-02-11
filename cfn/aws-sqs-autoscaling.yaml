@@ -78,5 +78,27 @@ Resources:
             - "GroupMinSize"
             - "GroupMaxSize"
 
+  LaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      AssociatePublicIpAddress: Boolean
+      BlockDeviceMappings:
+        - BlockDeviceMapping
+      EbsOptimized: Boolean
+      IamInstanceProfile: String
+      ImageId: String
+      InstanceId: String
+      InstanceMonitoring: Boolean
+      InstanceType: String
+      KernelId: String
+      KeyName: String
+      LaunchConfigurationName: String
+      PlacementTenancy: String
+      RamDiskId: String
+      SecurityGroups:
+        - SecurityGroup
+      SpotPrice: String
+      UserData: String
+
 Outputs:
   
