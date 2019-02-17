@@ -13,13 +13,21 @@ Parameters:
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
 
   InstanceType:
-    Description: Enter d2.2xlarge, d2.4xlarge or d3.8xlarge. Default is d3.2xlarge.
+    Description: Enter d2.2xlarge, d2.4xlarge or d2.8xlarge. Default is d2.2xlarge.
     Type: String
     Default: d2.2xlarge
     AllowedValues:
       - d2.2xlarge
       - d2.4xlarge
       - d2.8xlarge
+
+  AvailabilityZones:
+    Description: List of Availability Zones to use for the subnets in the VPC.
+    Type: AWS::EC2::AvailabilityZone::Name
+
+  DingoVpcId:
+    Description: The VPC
+    Type: AWS::EC2::VPC::Id
 
 Mappings:
   AWSRegionAMI:
@@ -30,10 +38,11 @@ Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      KeyName: !Ref 'KeyName'
-      InstanceType: !Ref 'InstanceType'
+      KeyName: !Ref KeyName
+      InstanceType: !Ref InstanceType
       ImageId: ami-0846ba3917ef99132
-      SecurityGroups: [!Ref 'EC2SecurityGroup']
+      SecurityGroups: !Ref ['EC2SecurityGroup']
+      AvailabilityZone: !Ref AvailabilityZones
       BlockDeviceMappings:
         - DeviceName: /dev/sdb
           VirtualName: ephemeral0
@@ -194,15 +203,11 @@ Resources:
     Properties:
       GroupName: dingo-group
       GroupDescription: Group for the DINGO code
+      VpcId: !Ref DingoVpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 0.0.0.0/0
-      SecurityGroupEgress:
-        - IpProtocol: -1
-          FromPort: -1
-          ToPort: -1
           CidrIp: 0.0.0.0/0
 
 Outputs:
