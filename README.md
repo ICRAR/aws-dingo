@@ -1,18 +1,7 @@
-# aws-dingo
-The AWS code for DINGO
+# Cloud-dingo
+The code for DINGO to run in the cloud - either Azure or AWS
 
-### Checklist
-
-CloudFormation template
-
-- [ ] Define VPC, including subnets, IGW, Sec, Route Table etc... (may separate this later)
-- [ ] Create AMI
-- [ ] Create EC2 Instance + ephemeral storage
-- [ ] Define ASG + Launch config / launch template(?)
-
-more to come...
-
-### References and Resources
+### AWS References and Resources
 
 - [CloudFormation Resource and Property Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
 - [Cfn-init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-init.html)

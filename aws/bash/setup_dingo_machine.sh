@@ -13,5 +13,5 @@ sudo apt-get --yes install docker-ce
 
 sudo docker pull sord/askapsoft:with_mssplit
 
-cd aws-dingo/docker/askapsoft-mpi
+cd cloud-dingo/docker/askapsoft-mpi
 sudo docker build .
