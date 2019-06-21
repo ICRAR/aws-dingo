@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 
 # This needs to be have done first
-# git clone https://github.com/ICRAR/aws-dingo.git
+# git clone https://github.com/ICRAR/cloud-dingo.git
 
-cd ~
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo apt-key fingerprint 0EBFCD88
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt-get update
-sudo apt-get --yes install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-sudo apt-get --yes install docker-ce
+sudo apt -y update
+sudo apt -y upgrade
 
-sudo docker pull sord/askapsoft:with_mssplit
+git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 
-cd cloud-dingo/docker/askapsoft-mpi
-sudo docker build .
+sudo apt-get install -y libboost-all-dev
+sudo apt install -y python-numpy
+sudo apt install -y libxerces-c-dev
+sudo apt install -y libhdf5-dev libhdf5-serial-dev
+
+cd yandasoft
+
+sudo bash build_all.sh -s ubuntu -S -c -a -r -y -j 4
+
+sudo pip install awscli
