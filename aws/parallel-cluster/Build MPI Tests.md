@@ -1,10 +1,22 @@
 # Building MPI Tests
 
-## Copy files 
+## First clone 
 
 ```
 cd /fsx
-mkdir tests
-cp ~/cloud-dingo/aws/parallel-cluster/*.sh .
-cp ~/cloud-dingo/aws/parallel-cluster/*.c .
+git clone https://github.com/ICRAR/cloud-dingo.git
+```
+
+## Pulls 
+
+```
+cd /fsx/cloud-dingo
+git pull
+```
+
+## Build 
+
+```
+cd /fs/cloud-dingo/aws/parallel-cluster
+mpicc hello.c -o hello.mpi
 ```

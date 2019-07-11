@@ -32,6 +32,15 @@ nohup find . -type f -print0 | xargs -0 -n 1 sudo lfs hsm_restore &
 sudo lfs hsm_restore filename
 ```
 
+## Exporting Fsx to S3
+
+```
+nohup find local/directory -type f -print0 | xargs -0 -n 1 sudo lfs hsm_archive &
+
+
+sudo lfs hsm_archive filename
+```
+
 
 # SRUN
 
