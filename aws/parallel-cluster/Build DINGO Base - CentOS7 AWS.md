@@ -2,7 +2,7 @@
 
 ## Create the instances
 
-Start the instance from the azure portal
+Start the from the list of valid CentOS7 [AMIs](https://github.com/aws/aws-parallelcluster/blob/v2.3.1/amis.txt)
 
 ## Update the CentOS and add EPEL
 ```
@@ -36,6 +36,11 @@ cd casacore/python
 vim CMakeLists.txt
 ```
 
+The line should look like this
+```
+ (${CMAKE_MAJOR_VERSION} EQUAL 3 AND ${CMAKE_MINOR_VERSION} GREATER 15))
+```
+
 ### Build YandaSoft
 ```
 cd ~/yandasoft 
@@ -47,4 +52,9 @@ sudo ./build_all.sh -s centos -S -c -a -r -y -j X
 ```
 cd ~
 git clone https://github.com/ICRAR/cloud-dingo.git
+```
+
+
+```
+module load mpi/openmpi-x86_64
 ```

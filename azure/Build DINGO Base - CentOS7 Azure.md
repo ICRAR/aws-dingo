@@ -26,7 +26,7 @@ sudo yum -y install lapack-devel.x86_64 lapack.x86_64 python2-numpy xerces-c-dev
 
 ### CMake 
 
-Casacore python has a dependence on Numpy, but CMake 3.13 (the default with CentOS7)  
+Casacore python has a dependence on Numpy, but CMake 3.13 (the default with CentOS7)
 can't read the dependence as it was introduced in 3.14 - so after the first failure you need to edit CMakeLists.txt 
 to require 3.15
 
@@ -48,4 +48,9 @@ sudo ./build_all.sh -s centos -S -c -a -r -y -j X
 ```
 cd ~
 git clone https://github.com/ICRAR/cloud-dingo.git
+```
+
+## Generic Password
+```
+Dingo123456789
 ```
