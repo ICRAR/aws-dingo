@@ -20,41 +20,26 @@ git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 
 Build needs
 ```
-sudo yum -y install lapack-devel.x86_64 lapack.x86_64 python2-numpy xerces-c-devel hdf5-devel
+sudo yum -y install lapack-devel.x86_64 lapack.x86_64 python2-numpy xerces-c-devel hdf5-devel cppunit-devel
 ```
 
-### CMake 
 
-Casacore python has a dependence on Numpy, but CMake 3.13 (the default with CentOS7)  
-can't read the dependence as it was intro - so after the first failure you need to edit CMakeLists.txt 
-to require 3.15
 
 ```
-cd yandasoft
-git clone https://github.com/casacore/casacore
-cd casacore/python 
-vim CMakeLists.txt
+module load mpi/mpich-x86_64
 ```
 
-The line should look like this
-```
- (${CMAKE_MAJOR_VERSION} EQUAL 3 AND ${CMAKE_MINOR_VERSION} GREATER 15))
-```
 
-### Build YandaSoft
 ```
 cd ~/yandasoft 
 
-sudo ./build_all.sh -s centos -S -c -a -r -y -j X
+vim ./build_all.sh
+
+sudo ./build_all.sh -s centos -p /fsx/bin -S -c -a -r -y -e -j X
 ```
 
-## Clone cloud-dingo
-```
-cd ~
-git clone https://github.com/ICRAR/cloud-dingo.git
-```
+## Modify /etc/environment
 
-
-```
-module load mpi/openmpi-x86_64
+``` 
+PATH=/usr/local/bin:/usr/bin:/fsx/bin
 ```

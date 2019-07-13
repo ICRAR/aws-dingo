@@ -42,7 +42,7 @@ sudo lfs hsm_archive filename
 ```
 
 
-# SRUN
+# Jonghwan's SRUN
 
 ```
 parset="/group/askap/jrhee/G23_1_32MHz/parsets/G23_T1-0A/science_spectral_imager_F00_B00_${SLURM_JOB_ID}.in"
@@ -50,5 +50,14 @@ log="/group/askap/jrhee/G23_1_32MHz/logs/G23_T1-0A/science_spectral_imager_F00_B
 NCORES=433
 NPPN=20
 srun --export=ALL --ntasks=${NCORES} --ntasks-per-node=${NPPN} imager -p -c "$parset" > "$log”
+```
+
+## Cloning cloud-dingo
+
+```
+git clone https://github.com/ICRAR/cloud-dingo
+
+module load mpi/mpich-x86_64
+
 ```
 
