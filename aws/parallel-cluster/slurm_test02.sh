@@ -5,4 +5,6 @@
 # Number of tasks per node
 #SBATCH --tasks-per-node=2
 
-mpirun hello.mpiq
+module load mpi/mpich-x86_64
+
+mpirun hello.mpi

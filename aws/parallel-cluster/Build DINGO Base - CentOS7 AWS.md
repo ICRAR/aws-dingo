@@ -1,5 +1,14 @@
 # Build the DINGO Base
 
+## Start ParallelCluster
+
+```
+pcluster create small-test
+
+
+```
+
+
 ## Create the instances
 
 Start the from the list of valid CentOS7 [AMIs](https://github.com/aws/aws-parallelcluster/blob/v2.3.1/amis.txt)
