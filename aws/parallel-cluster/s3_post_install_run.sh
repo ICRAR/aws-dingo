@@ -10,8 +10,7 @@ yum -y install \
     lapack.x86_64 \
     libffi \
     log4cxx \
-    openblas \
-    openmpi3 \
+    openblas-devel \
     openssl \
     patch \
     python \
@@ -21,12 +20,13 @@ yum -y install \
     xerces-c \
     wcslib
 
-echo "PATH=/usr/local/bin:/usr/bin:/fsx/yandasoft/bin" >> /etc/environment
-echo "LD_LIBRARY_PATH=/fsx/yandasoft/lib" >> /etc/environment
-
 # Add the new paths
 echo "PATH=/usr/local/bin:/usr/bin:/fsx/yandasoft/bin" >> /etc/environment
 echo "LD_LIBRARY_PATH=/fsx/yandasoft/lib" >> /etc/environment
+
+# creates the necessary links and cache to the most recent shared libraries
+echo "/fsx/yandasoft/lib" >> /etc/ld.so.conf.d/yandasoft.conf
+ldconfig
 
 # Remove the mpich
 rm -rf /usr/lib64/mpich

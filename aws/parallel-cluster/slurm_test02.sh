@@ -5,6 +5,6 @@
 # Number of tasks per node
 #SBATCH --tasks-per-node=2
 
-module load mpi/openmpi3-x86_64
+module load openmpi/3.1.4
 
 mpirun hello.mpi

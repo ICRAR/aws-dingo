@@ -27,9 +27,7 @@ git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 cd yandasoft 
 ```
 
-### Change openmpi 
-
-Change openmpi to openmpi3
+### Remove openmpi 
 
 ```
 vim build_all.sh
@@ -37,7 +35,13 @@ vim build_all.sh
 
 ### Build
 ```
-module load mpi/openmpi3-x86_64
+module load openmpi/3.1.4
 
-sudo ./build_all.sh -s centos -p /fsx/yandasoft -S -c -a -r -y -j X
+sudo ./build_all.sh -s centos -p /fsx/yandasoft -S -c -a -r -y -j X -Y "-D CMAKE_PREFIX_PATH=/opt/amazon/efa"
+```
+
+### Copy from Lustre -> S3
+
+```
+nohup find yandasoft/ -type f -print0 | xargs -0 -n 1 sudo lfs hsm_archive &
 ```

@@ -18,7 +18,6 @@ yum -y install \
     log4cxx-devel \
     make \
     openblas-devel \
-    openmpi3-devel \
     openssl-devel \
     patch \
     python-devel \

@@ -6,4 +6,6 @@
 #SBATCH --nodes=1
 #--SBATCH --parsable
 
+module load openmpi/3.1.4
+
 srun run-task.sh
