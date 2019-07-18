@@ -1,9 +1,9 @@
 #!/bin/bash
 # Number of MPI tasks
-#SBATCH -n 6
+#SBATCH -n 433
 #
 # Number of tasks per node
-#SBATCH --tasks-per-node=2
+#SBATCH --tasks-per-node=30
 
 module load openmpi/3.1.4
 cd /fsx
