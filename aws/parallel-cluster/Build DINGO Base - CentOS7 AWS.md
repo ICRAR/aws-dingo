@@ -40,6 +40,15 @@ module load openmpi/3.1.4
 sudo ./build_all.sh -s centos -p /fsx/yandasoft -S -c -a -r -y -j X -Y "-D CMAKE_PREFIX_PATH=/opt/amazon/efa"
 ```
 
+### Copy the measures 
+
+```
+wget ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
+sudo mkdir -p /fsx/yandasoft/share/casacore/data
+sudo tar -xvf WSRT_Measures.ztar -C /fsx/yandasoft/share/casacore/data
+rm WSRT_Measures.zta
+```
+
 ### Copy from Lustre -> S3
 
 ```

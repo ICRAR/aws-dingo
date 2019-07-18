@@ -57,7 +57,6 @@ srun --export=ALL --ntasks=${NCORES} --ntasks-per-node=${NPPN} imager -p -c "$pa
 ```
 git clone https://github.com/ICRAR/cloud-dingo
 
-module load mpi/mpich-x86_64
-
+module load openmpi/3.1.4
 ```
 
