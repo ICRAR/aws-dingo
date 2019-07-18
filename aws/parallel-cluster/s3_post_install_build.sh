@@ -35,4 +35,9 @@ echo "LD_LIBRARY_PATH=/fsx/yandasoft/lib" >> /etc/environment
 # Remove the mpich
 rm -rf /usr/lib64/mpich
 
+# Add the flock option
+sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
+umount /fsx
+mount -a
+
 exit 0
