@@ -17,11 +17,10 @@ pcluster ssh NAME -i KEY
 pcluster delete NAME
 ``` 
 
-
 # Running Jobs
 
 ```
-sbatch --partition=compute test2.sh
+sbatch test2.sh
 ```
 
 ## Restore S3 to FSx
@@ -40,6 +39,12 @@ nohup find local/directory -type f -print0 | xargs -0 -n 1 sudo lfs hsm_archive 
 
 sudo lfs hsm_archive filename
 ```
+
+# SRUN
+
+**NOTE: Srun doesn't work properly with the AWS openmpi**
+
+**You need to use mpirun**
 
 
 # Jonghwan's SRUN
