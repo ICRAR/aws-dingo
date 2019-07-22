@@ -7,6 +7,7 @@ yum -y install \
     fftw3 \
     gsl \
     hdf5 \
+    htop \
     lapack.x86_64 \
     libffi \
     log4cxx \
@@ -35,5 +36,7 @@ rm -rf /usr/lib64/mpich
 sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
 umount /fsx
 mount -a
+
+chmod oug+rwx -R /fsx
 
 exit 0

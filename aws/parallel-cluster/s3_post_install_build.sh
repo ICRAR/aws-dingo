@@ -12,6 +12,7 @@ yum -y install \
     git \
     gsl-devel \
     hdf5-devel \
+    htop \
     lapack-devel.x86_64 \
     lapack.x86_64 \
     libffi-devel \
@@ -39,5 +40,7 @@ rm -rf /usr/lib64/mpich
 sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
 umount /fsx
 mount -a
+
+chmod oug+rwx -R /fsx
 
 exit 0
