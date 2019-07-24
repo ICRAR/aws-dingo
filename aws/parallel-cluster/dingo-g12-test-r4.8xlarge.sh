@@ -5,7 +5,7 @@
 # Number of tasks per node
 #SBATCH --tasks-per-node=24
 
-# m5a.12xlarge - 48 cores 192 GB RAM
+# r4.8xlarge - 32 cores 244 GB RAM
 
 module load openmpi/3.1.4
 cd /fsx/G12_test
