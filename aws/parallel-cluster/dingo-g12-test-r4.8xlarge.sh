@@ -3,7 +3,7 @@
 #SBATCH -n 244
 #
 # Number of tasks per node
-#SBATCH --tasks-per-node=24
+#SBATCH --tasks-per-node=20
 
 # r4.8xlarge - 32 cores 244 GB RAM
 
