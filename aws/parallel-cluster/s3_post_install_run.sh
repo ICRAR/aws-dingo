@@ -29,6 +29,19 @@ echo "LD_LIBRARY_PATH=/dingo/yandasoft/lib" >> /etc/environment
 echo "/dingo/yandasoft/lib" >> /etc/ld.so.conf.d/yandasoft.conf
 ldconfig
 
+echo "measures.DE200.directory: /dingo/yandasoft/share/casacore/data/ephemerides" >> /home/centos/.casarc
+echo "measures.DE405.directory: /dingo/yandasoft/share/casacore/data/ephemerides" >> /home/centos/.casarc
+echo "measures.line.directory: /dingo/yandasoft/share/casacore/data/ephemerides" >> /home/centos/.casarc
+echo "measures.sources.directory: /dingo/yandasoft/share/casacore/data/ephemerides" >> /home/centos/.casarc
+echo "measures.comet.directory: /dingo/yandasoft/share/casacore/data/ephemerides" >> /home/centos/.casarc
+echo "measures.ierseop97.directory: /dingo/yandasoft/share/casacore/data/geodetic" >> /home/centos/.casarc
+echo "measures.ierspredict.directory: /dingo/yandasoft/share/casacore/data/geodetic" >> /home/centos/.casarc
+echo "measures.tai_utc.directory: /dingo/yandasoft/share/casacore/data/geodetic" >> /home/centos/.casarc
+echo "measures.igrf.directory: /dingo/yandasoft/share/casacore/data/geodetic" >> /home/centos/.casarc
+echo "measures.observatory.directory: /dingo/yandasoft/share/casacore/data/geodetic" >> /home/centos/.casarc
+
+chown centos:centos /home/centos/.casarc
+
 # Remove the mpich
 rm -rf /usr/lib64/mpich
 
