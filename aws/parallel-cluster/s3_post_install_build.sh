@@ -30,8 +30,12 @@ yum -y install \
     wcslib-devel
 
 # Add the new paths
-echo "PATH=/usr/local/bin:/usr/bin:/shared/yandasoft/bin" >> /etc/environment
-echo "LD_LIBRARY_PATH=/shared/yandasoft/lib" >> /etc/environment
+echo "PATH=/usr/local/bin:/usr/bin:/dingo/yandasoft/bin" >> /etc/environment
+echo "LD_LIBRARY_PATH=/dingo/yandasoft/lib" >> /etc/environment
+
+# creates the necessary links and cache to the most recent shared libraries
+echo "/dingo/yandasoft/lib" >> /etc/ld.so.conf.d/yandasoft.conf
+ldconfig
 
 # Remove the mpich
 rm -rf /usr/lib64/mpich
@@ -42,5 +46,6 @@ rm -rf /usr/lib64/mpich
 #mount -a
 
 chmod oug+rwx -R /shared
+
 
 exit 0
