@@ -1,9 +1,8 @@
 #!/bin/bash
 # Number of MPI tasks
 #SBATCH -n 244
-#
-# Number of tasks per node
 #SBATCH --tasks-per-node=30
+#SBATCH --mem=72GB
 
 # c5.9xlarge - 36 cores 72 GB RAM
 
