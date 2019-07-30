@@ -3,11 +3,11 @@
 #SBATCH -n 244
 #SBATCH --tasks-per-node=12
 #SBATCH --nodes=21
-#SBATCH --mem=236GB
+#SBATCH --mem=242GB
 
-# r4.8xlarge - 32 cores 244 GB RAM
+# r4.8xlarge - 32 cores 244GB RAM
 
 module load openmpi/3.1.4
-cd /fsx/G12_test
+cd /shared/G12_test
 #mpirun -np 244 imager -p -c science_spectral_imager_F00_B00_5575077.in -l askap.log_cfg
 mpirun -np 244 imager -p -c science_spectral_imager_F00_B00_5575077.in
