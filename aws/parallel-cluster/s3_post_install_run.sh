@@ -22,21 +22,21 @@ yum -y install \
     wcslib
 
 # Add the new paths
-echo "PATH=/usr/local/bin:/usr/bin:/fsx/yandasoft/bin" >> /etc/environment
-echo "LD_LIBRARY_PATH=/fsx/yandasoft/lib" >> /etc/environment
+echo "PATH=/usr/local/bin:/usr/bin:/shared/yandasoft/bin" >> /etc/environment
+echo "LD_LIBRARY_PATH=/shared/yandasoft/lib" >> /etc/environment
 
 # creates the necessary links and cache to the most recent shared libraries
-echo "/fsx/yandasoft/lib" >> /etc/ld.so.conf.d/yandasoft.conf
+echo "/shared/yandasoft/lib" >> /etc/ld.so.conf.d/yandasoft.conf
 ldconfig
 
 # Remove the mpich
 rm -rf /usr/lib64/mpich
 
 # Add the flock option
-sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
-umount /fsx
-mount -a
+#sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
+#umount /fsx
+#mount -a
 
-chmod oug+rwx -R /fsx
+chmod oug+rwx -R /shared
 
 exit 0

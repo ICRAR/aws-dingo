@@ -30,17 +30,17 @@ yum -y install \
     wcslib-devel
 
 # Add the new paths
-echo "PATH=/usr/local/bin:/usr/bin:/fsx/yandasoft/bin" >> /etc/environment
-echo "LD_LIBRARY_PATH=/fsx/yandasoft/lib" >> /etc/environment
+echo "PATH=/usr/local/bin:/usr/bin:/shared/yandasoft/bin" >> /etc/environment
+echo "LD_LIBRARY_PATH=/shared/yandasoft/lib" >> /etc/environment
 
 # Remove the mpich
 rm -rf /usr/lib64/mpich
 
 # Add the flock option
-sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
-umount /fsx
-mount -a
+#sed -i 's/defaults,_netdev/defaults,flock,_netdev/' /etc/fstab
+#umount /fsx
+#mount -a
 
-chmod oug+rwx -R /fsx
+chmod oug+rwx -R /shared
 
 exit 0
