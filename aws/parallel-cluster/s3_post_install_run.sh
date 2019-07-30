@@ -37,6 +37,6 @@ rm -rf /usr/lib64/mpich
 #umount /fsx
 #mount -a
 
-chmod oug+rwx -R /shared
+#chmod oug+rwx -R /dingo
 
 exit 0
