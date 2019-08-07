@@ -1,11 +1,17 @@
 Cimager.dataset                                 = scienceData_SB8171_G12_T0-0A.beam00.ms
 Cimager.imagetype                               = fits
-# Apply a maximum UV cutoff
-Cimager.MaxUV                                   = 6000
-#
 Cimager.Images.Names                            = [image.i.SB8171.cube.G12_T0-0A.beam00]
-Cimager.Images.shape                            = [3072, 3072]
-Cimager.Images.cellsize                         = [2arcsec, 2arcsec]
+
+# 6KM
+#Cimager.MaxUV                                   = 6000
+#Cimager.Images.shape                            = [3072, 3072]
+#Cimager.Images.cellsize                         = [2arcsec, 2arcsec]
+
+# 2KM
+Cimager.MaxUV                                   = 2000
+Cimager.Images.shape                            = [1024, 1024]
+Cimager.Images.cellsize                         = [6arcsec, 6arcsec]
+
 Cimager.Images.direction                        = [11h50m60.000, -00.26.59.96, J2000]
 Cimager.Images.restFrequency                    = HI
 # Options for the alternate imager
@@ -15,7 +21,7 @@ Cimager.tmpfs                                   = /dev/shm
 # barycentre and multiple solver mode not supported in continuum imaging (yet)
 Cimager.barycentre                              = true
 Cimager.solverpercore                           = true
-Cimager.nwriters                                = 22
+Cimager.nwriters                                = 20
 Cimager.singleoutputfile                        = false
 #
 # This defines the parameters for the gridding.
