@@ -2,7 +2,6 @@
 
 yum -y install \
     boost \
-    cfitsio \
     cppunit \
     fftw3 \
     gsl \

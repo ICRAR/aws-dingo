@@ -3,7 +3,6 @@
 yum -y install \
     bison \
     boost-devel \
-    cfitsio-devel \
     cmake3 \
     cppunit-devel \
     fftw3-devel \

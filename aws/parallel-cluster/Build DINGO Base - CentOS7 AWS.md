@@ -21,7 +21,7 @@ So I used two scripts to load the libraries when [building](s3_post_install_buil
 
 These scripts do the following:
 * Load the libraries required for building/running.
-* Setup PATH and LD_LIBRARY_PATH environment variables to point to the lustre file system ```/fsx/yandasoft```.
+* Setup PATH and LD_LIBRARY_PATH environment variables to point to the lustre file system ```/dingo/yandasoft```.
 * Remove ```mpich``` from the system.
 * Edit ```/etc/fstab``` so the lustre mount has _flock_ added to it. This is needed by YandaSoft.
 * Remount the filesystems. 
@@ -76,8 +76,22 @@ So you need to tell CMake where to find it.
 
 ```
 module load openmpi/3.1.4
+```
 
-sudo ./build_all.sh -s centos -p /fsx/yandasoft -S -c -a -r -y -j X -Y "-D CMAKE_PREFIX_PATH=/opt/amazon/efa"
+#### CFITSIO
+```
+cd
+wget http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio_latest.tar.gz
+tar -xvf cfitsio_latest.tar.gz
+cd cfitsio-3.47/
+./configure --prefix=/dingo/yandasoft/ --enable-reentrant
+make
+sudo make install
+``` 
+
+#### YANDASOFT 
+```
+sudo ./build_all.sh -s centos -p /dingo/yandasoft -S -c -a -r -y -j X -Y "-D CMAKE_PREFIX_PATH=/opt/amazon/efa"
 ```
 
 ### Copy the measures 
@@ -86,8 +100,8 @@ YandaSoft needs this to work as it holds the leap second data and the like.
 
 ```
 wget ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
-sudo mkdir -p /fsx/yandasoft/share/casacore/data
-sudo tar -xvf WSRT_Measures.ztar -C /fsx/yandasoft/share/casacore/data
+sudo mkdir -p /dingo/yandasoft/share/casacore/data
+sudo tar -xvf WSRT_Measures.ztar -C /dingo/yandasoft/share/casacore/data
 rm WSRT_Measures.zta
 ```
 
