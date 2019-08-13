@@ -32,6 +32,9 @@ yum -y install \
 echo "PATH=/usr/local/bin:/usr/bin:/dingo/yandasoft/bin" >> /etc/environment
 echo "LD_LIBRARY_PATH=/dingo/yandasoft/lib" >> /etc/environment
 
+# Modify the CMAKE_PREFIX_PATH so the build puts/looks for code it the correct place
+echo "CMAKE_PREFIX_PATH=/opt/amazon/efa:/dingo/yandasoft" >> /etc/environment
+
 # creates the necessary links and cache to the most recent shared libraries
 echo "/dingo/yandasoft/lib" >> /etc/ld.so.conf.d/yandasoft.conf
 ldconfig
