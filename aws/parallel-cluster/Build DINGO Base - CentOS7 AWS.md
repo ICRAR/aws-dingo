@@ -86,7 +86,7 @@ tar -xvf cfitsio_latest.tar.gz
 cd cfitsio-3.47/
 ./configure --prefix=/dingo/yandasoft --enable-reentrant
 make
-sudo make install
+make install
 ``` 
 
 #### YANDASOFT 
