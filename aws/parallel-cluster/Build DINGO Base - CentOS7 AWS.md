@@ -86,12 +86,12 @@ tar -xvf cfitsio_latest.tar.gz
 cd cfitsio-3.47/
 ./configure --prefix=/dingo/yandasoft --enable-reentrant
 make
-sudo make install
+make install
 ``` 
 
 #### YANDASOFT 
 ```
-sudo ./build_all.sh -s centos -p /dingo/yandasoft -S -c -a -r -y -j X -Y "-D CMAKE_PREFIX_PATH=/opt/amazon/efa"
+sudo ./build_all.sh -s centos -p /dingo/yandasoft -S -c -a -r -y -j 4
 ```
 
 ### Copy the measures 
