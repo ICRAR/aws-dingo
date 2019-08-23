@@ -6,7 +6,6 @@ git clone https://github.com/hmeiland/cyclecloud-lustre.git
 cd cyclecloud-lustre
 cyclecloud locker list
 
-
 cyclecloud show_cluster
 
 cyclecloud add_node <cluster-name> -c 1

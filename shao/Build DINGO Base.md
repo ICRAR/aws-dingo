@@ -1,4 +1,4 @@
-# Shanghi Obeservatory Build
+# Shanghi Observatory Build
 
 ## OS
 
@@ -27,37 +27,43 @@ CentOS Linux release 7.6.1810 (AltArch)
 
 ```
 
-## Preinstall packages we need
+## BBCP
+
+Download the source
 
 ```
-yum -y install \
-    bison \
-    boost-devel \
-    cmake3 \
-    cppunit-devel \
-    fftw3-devel \
-    flex \
-    gcc-c++ \
-    git \
-    gsl-devel \
-    hdf5-devel \
-    htop \
-    lapack-devel.x86_64 \
-    lapack.x86_64 \
-    libffi-devel \
-    log4cxx-devel \
-    make \
-    openblas-devel \
-    openmpi-devel \
-    openssl-devel \
-    patch \
-    python-devel \
-    python-pip \
-    python2-numpy \
-    readline-devel \
-    svn \
-    xerces-c-devel \
-    wcslib-devel
+wget http://www.slac.stanford.edu/~abh/bbcp/bbcp.tgz
+tar -zxvf bbcp.tgz
+```
+
+Add the ARM target to the Makefile
+cd bbcp/src
+vim Makefile
+```
+makeLinuxaarch64:
+	@make $(MKPARMS) RR=$(RELNUM) \
+	CC=$(LNXCC) \
+	BB=$(LNXcc) \
+	CFLAGS="$(ENVCFLAGS) $(LNXOPT)" \
+	BFLAGS="$(ENVCFLAGS) $(LNXOPT_B)" \
+	INCLUDE="$(ENVINCLUDE)" \
+	LIBS="$(LNXLIBS64)"
+```
+
+Run Make
+
+```
+make Linux
+```
+
+## Packages we need from the module library 
+
+```
+module use /home/app/modulefiles
+
+module load boost/arm-1.65.1 cmake/arm-3.15.2 fftw/arm-3.3.8 hdf5/arm-1.10.4 lapack/arm-3.8.0 python/arm-2.7.14 wcslib/arm-6.2
+
+module load mpi/openmpi-aarch64
 ```
 
 ## Clone YANDASOFT
