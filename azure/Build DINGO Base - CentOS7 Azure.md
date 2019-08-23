@@ -2,7 +2,7 @@
 
 ## Create the instances
 
-Start the instance from the azure portal
+Start the instance from the CycleCloud console
 
 ## Update the CentOS and add EPEL
 ```
@@ -21,7 +21,7 @@ git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 
 Build needs
 ```
-sudo yum -y install lapack-devel.x86_64 lapack.x86_64 python2-numpy xerces-c-devel hdf5-devel
+sudo yum -y install lapack-devel.x86_64 lapack.x86_64 python2-numpy xerces-c-devel hdf5-devel cppunit-devel
 ```
 
 ### CMake 
@@ -41,16 +41,22 @@ vim CMakeLists.txt
 ```
 cd ~/yandasoft 
 
-sudo ./build_all.sh -s centos -S -c -a -r -y -j X
+sudo ./build_all.sh -s centos -p /shared -S -c -a -r -y -j 4
+```
+
+### Copy the measures 
+
+YandaSoft needs this to work as it holds the leap second data and the like.
+
+```
+wget ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
+sudo mkdir -p /shared/share/casacore/data
+sudo tar -xvf WSRT_Measures.ztar -C /shared/share/casacore/data
+rm WSRT_Measures.ztar
 ```
 
 ## Clone cloud-dingo
 ```
 cd ~
 git clone https://github.com/ICRAR/cloud-dingo.git
-```
-
-## Generic Password
-```
-Dingo123456789
 ```

@@ -27,4 +27,7 @@ else
     echo "WARNING: $MOUNTPOINT not mounted yet. Not fixing permissions" >&2
 fi
 
-# TODO:: We need to make sure'flock' is in the fstab
+# Add the flock option
+sed -i '/lustre/s/defaults/defaults,flock/' /etc/fstab
+umount /lustre
+mount -a
