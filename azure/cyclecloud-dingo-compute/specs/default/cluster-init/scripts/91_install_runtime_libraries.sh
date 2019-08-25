@@ -2,11 +2,12 @@
 
 set -ex
 
-yum -y upgrade
-yum -y install epel-release
+#yum -y upgrade
+#yum -y install epel-release
 
 yum -y install \
     boost \
+    cfitsio \
     cppunit \
     fftw3 \
     gsl \
