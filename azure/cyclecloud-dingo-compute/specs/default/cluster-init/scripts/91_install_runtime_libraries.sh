@@ -2,8 +2,6 @@
 
 set -ex
 
-exit 0
-
 yum -y install \
     boost \
     cppunit \
@@ -25,3 +23,4 @@ yum -y install \
     xerces-c \
     wcslib
 
+exit 0

@@ -2,8 +2,6 @@
 
 set -ex
 
-exit 0
-
 # Add the new paths
 echo "PATH=/usr/local/bin:/usr/bin:/shared/bin" >> /etc/environment
 echo "LD_LIBRARY_PATH=/shared/lib" >> /etc/environment
@@ -24,3 +22,5 @@ echo "measures.igrf.directory: /shared/share/casacore/data/geodetic" >> /shared/
 echo "measures.observatory.directory: /shared/share/casacore/data/geodetic" >> /shared/home/cycleadmin/.casarc
 
 chown cycleadmin:cycleadmin /shared/home/cycleadmin/.casarc
+
+exit 0

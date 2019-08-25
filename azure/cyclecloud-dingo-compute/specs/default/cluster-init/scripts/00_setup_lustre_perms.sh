@@ -20,18 +20,14 @@ fi
 # set permissions (if FS is mounted)
 if mount | grep -q $MOUNTPOINT; then
     chown $ADMIN:$GROUP $MOUNTPOINT
-    if [ $rights != 775 ]; then
-        chmod 775 $MOUNTPOINT
-    fi
+    chmod 775 $MOUNTPOINT
 else
     echo "WARNING: $MOUNTPOINT not mounted yet. Not fixing permissions" >&2
 fi
 
-exit 0
-
 # Add the flock option
-sed -i '/lustre/s/defaults/defaults,flock/' /etc/fstab
 umount /lustre
+sed -i '/lustre/s/defaults/defaults,flock/' /etc/fstab
 mount -a
 
 exit 0

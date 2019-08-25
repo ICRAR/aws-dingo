@@ -19,3 +19,7 @@ cyclecloud locker list
 
 If ```cyclecloud import_template -f templates/dingo-compute.txt``` fails then use
 ```cyclecloud import_template -f templates/dingo-compute.txt --force```
+
+# Log Files
+
+Log files are written to ```/opt/cycle/jetpack/logs/cluster-init/dingo-compute/default/scripts```
