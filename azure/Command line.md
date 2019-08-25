@@ -16,3 +16,6 @@ git clone https://github.com/andreas-wilm/cyclecloud-dingo-compute
 cd cyclecloud-dingo-compute
 cyclecloud locker list
 ```
+
+If ```cyclecloud import_template -f templates/dingo-compute.txt``` fails then use
+```cyclecloud import_template -f templates/dingo-compute.txt --force```
