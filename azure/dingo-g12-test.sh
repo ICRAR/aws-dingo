@@ -4,7 +4,7 @@
 #SBATCH --tasks-per-node=25
 #SBATCH --nodes=10
 
-# r4.16xlarge - 64 cores 488 GB RAM
+module load mpi/openmpi-x86_64
 
 cd /lustre/G12_test
 #mpirun -np 244 imager -p -c science_spectral_imager_F00_B00_5575077.in -l askap.log_cfg
