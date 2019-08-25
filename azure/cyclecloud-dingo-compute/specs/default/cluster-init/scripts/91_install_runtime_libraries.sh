@@ -10,6 +10,7 @@ yum -y install \
     cfitsio \
     cppunit \
     fftw3 \
+    git \
     gsl \
     hdf5 \
     htop \
@@ -17,7 +18,7 @@ yum -y install \
     libffi \
     log4cxx \
     openblas-devel \
-    open-mpi \
+    openmpi \
     openssl \
     patch \
     python \
