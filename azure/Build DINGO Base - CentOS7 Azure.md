@@ -24,19 +24,6 @@ Build needs
 sudo yum -y install lapack-devel.x86_64 lapack.x86_64 python2-numpy xerces-c-devel hdf5-devel cppunit-devel
 ```
 
-### CMake 
-
-Casacore python has a dependence on Numpy, but CMake 3.13 (the default with CentOS7)
-can't read the dependence as it was introduced in 3.14 - so after the first failure you need to edit CMakeLists.txt 
-to require 3.15
-
-```
-cd yandasoft
-git clone https://github.com/casacore/casacore
-cd casacore/python 
-vim CMakeLists.txt
-```
-
 ### Build YandaSoft
 ```
 cd ~/yandasoft 
@@ -53,6 +40,33 @@ wget ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
 sudo mkdir -p /shared/share/casacore/data
 sudo tar -xvf WSRT_Measures.ztar -C /shared/share/casacore/data
 rm WSRT_Measures.ztar
+```
+
+## Tar Ball
+
+```
+tar -xvzf azure-yandasoft.tar.gz /shared/bin /shared/include /shared/lib /shared/man /shared/share
+```
+
+# Copying DINGO files
+
+## Setup AWS
+```
+sudo pip install virtualenv
+virtualenv ~/virt-env/aws
+source ~/virt-env/aws/bin/activate
+pip install awscli
+```
+
+## Create AWS files
+```
+mkdir ~/.aws
+vim config
+```
+
+```
+cd /lustre
+aws s3 sync s3://dingo-data-sydney/G12_test G12_test
 ```
 
 ## Clone cloud-dingo

@@ -30,3 +30,10 @@ If ```cyclecloud import_template -f templates/dingo-compute.txt``` fails then us
 # Log Files
 
 Log files are written to ```/opt/cycle/jetpack/logs/cluster-init/dingo-compute/default/scripts```
+
+
+# Tar Ball
+
+```
+tar -xvzf azure-yandasoft.tar.gz /shared/bin /shared/include /shared/lib /shared/man /shared/share
+```

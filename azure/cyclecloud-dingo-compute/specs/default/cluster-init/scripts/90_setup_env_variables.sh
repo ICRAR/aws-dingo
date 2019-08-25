@@ -4,10 +4,14 @@ set -ex
 
 # Add the new paths
 echo "PATH=/usr/local/bin:/usr/bin:/shared/bin" >> /etc/environment
-echo "LD_LIBRARY_PATH=/shared/lib" >> /etc/environment
+echo "LD_LIBRARY_PATH=/shared/lib:/lib:/lib64" >> /etc/environment
 
 # creates the necessary links and cache to the most recent shared libraries
 echo "/shared/lib" >> /etc/ld.so.conf.d/yandasoft.conf
+echo "/lib" >> /etc/ld.so.conf.d/yandasoft.conf
+echo "/lib64" >> /etc/ld.so.conf.d/yandasoft.conf
+echo "/usr/lib" >> /etc/ld.so.conf.d/yandasoft.conf
+echo "/usr/lib64" >> /etc/ld.so.conf.d/yandasoft.conf
 ldconfig
 
 # Create the casacore file to point to the measures

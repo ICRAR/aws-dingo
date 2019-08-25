@@ -2,6 +2,9 @@
 
 set -ex
 
+yum -y upgrade
+yum -y install epel-release
+
 yum -y install \
     boost \
     cppunit \
