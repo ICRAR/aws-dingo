@@ -102,6 +102,8 @@ install_extra=no
 clean_askap_dependencies=no
 clean_yandasoft=no
 build_adios=no
+
+shao_opts="-DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3.so -DFFTWF_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/app/fftw3/3.3.8/arm/include"
 casacore_version=master
 casacore_opts=
 casarest_version=components-only
@@ -361,9 +363,9 @@ build_and_install() {
     comp_opts="-DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc"
   fi
 
-  cmakeline=" ${cmake} .. -DENABLE_TABLELOCKING=OF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts "$@""
+  cmakeline=" ${cmake} .. -DENABLE_TABLELOCKING=OF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $shao_opts "$@""
 
-  try ${cmake} .. -DENABLE_TABLELOCKING=OFF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts -DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3.so -DFFTWF_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/app/fftw3/3.3.8/arm/include #"$@"
+  try ${cmake} .. -DENABLE_TABLELOCKING=OFF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $shao_opts #"$@"
   try make all -j${jobs}
   try make install -j${jobs}
   cd "$sourcedir"
@@ -416,7 +418,7 @@ if [ $casacore_version != master ]; then
   casacore_version=COMMIT-v$casacore_version
 fi
 if [ $install_casacore == yes ]; then
-  build_and_install https://github.com/casacore/casacore $casacore_version -DBUILD_TESTING=OFF $casacore_opts
+  build_and_install https://github.com/casacore/casacore $casacore_version -DBUILD_TESTING=OFF $casacore_opts $shao_opts
   if [ $casacore_version == summit_demo ]; then
     # Lets reset this back to master to save handling lots os special cases below!
     casacore_version=master
@@ -503,7 +505,7 @@ if [ $install_yandasoft == yes ]; then
   else
     comp_opts="-DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc"
   fi
-  try ${cmake} .. -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $yandasoft_opts -DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3.so -DFFTWF_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/app/fftw3/3.3.8/arm/include
+  try ${cmake} -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $yandasoft_opts $shao_opts ..
   try make -j${jobs} all
   try make -j${jobs} install
 fi
