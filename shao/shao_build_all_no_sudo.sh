@@ -34,7 +34,7 @@
 # authors:
 # Original author Rodrigo Tobar
 # Changes to concentrate on the yandasoft build: Stephen Ord
-# SHAO Changes: Kevin Vinsen
+# SHAO Changes: Kevin Vinsen, Baoqiang Lao
 #
 
 print_usage() {
@@ -47,7 +47,7 @@ print_usage() {
 	echo " -j <jobs>       Number of parallel compilation jobs, defaults to 1"
 	echo " -p <prefix>     Prefix for installation, defaults to /usr/local"
 	echo " -w <workdir>    Working directory, defaults to ."
-	echo " -L 	       Load system dependencies. "
+	echo " -L 	           Load system dependencies. "
 	echo " -W              Remove the working directory at the end of the build"
 	echo " -C <opts> | -c  Install Casacore + cmake options"
 	echo " -A <opts> | -a  Install ASKAP dependencies + cmake options"
@@ -55,8 +55,8 @@ print_usage() {
 	echo " -Y <opts> | -y  Install YandaSoft + cmake options"
 	echo " -E <opts> | -e  Install Extra (analysis + pipelinetasks) + cmake options"
 	echo " -U 	       clean and uninstall yandasoft and dependencies (except casacore/casarest)"
-        echo " -O <opts>       Options to apply to all builds."
-        echo " -P              Use Python 3 "
+  echo " -O <opts>       Options to apply to all builds."
+  echo " -P              Use Python 3 "
 }
 
 try() {
@@ -255,14 +255,14 @@ load_s_dependencies() {
 			$SUDO apt install -y clang
 		fi
 	elif [ $system == centos ]; then
-                module use /home/app/modulefiles
-                module load boost/arm-1.65.1 # casacore 
-                module load cmake/arm-3.15.2 # many
-                module load fftw/arm-3.3.8  # casacore
-                module load hdf5/arm-1.10.4 # casacore
-                module load lapack/arm-3.8.0 # casacore
-                module load python/arm-2.7.14 # casacore
-                module load wcslib/arm-6.2 # casacore
+    module use /home/app/modulefiles
+    module load boost/arm-1.65.1 # casacore
+    module load cmake/arm-3.15.2 # many
+    module load fftw/arm-3.3.8  # casacore
+    module load hdf5/arm-1.10.4 # casacore
+    module load lapack/arm-3.8.0 # casacore
+    module load python/arm-2.7.14 # casacore
+    module load wcslib/arm-6.2 # casacore
 	#	$SUDO yum --assumeyes install \
 	#	    boost-devel    `# casacore` \
 	#	    cfitsio-devel  `# casacore` \

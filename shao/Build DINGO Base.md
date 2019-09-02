@@ -56,35 +56,24 @@ Run Make
 make Linux
 ```
 
-## Packages we need from the module library 
-
-```
-module use /home/app/modulefiles
-
-module load boost/arm-1.65.1 cmake/arm-3.15.2 fftw/arm-3.3.8 hdf5/arm-1.10.4 lapack/arm-3.8.0 python/arm-2.7.14 wcslib/arm-6.2
-
-module load mpi/openmpi-aarch64
-```
-
 ## Cloud Dingo
 
 ```
-cd ~
+cd /o9000/ASKAP
 git clone https://github.com/ICRAR/cloud-dingo.git
 ```
 
 ## Clone YANDASOFT
 
 ```
-cd ~
+cd /o9000/ASKAP
 git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 ```
 
 ### Build YandaSoft
 ```
+cp cloud-dingo/shao/shao_build_all.sh yandasoft/ 
+
 cd ~/yandasoft 
-
-cp ../cloud-dingo/shao/shao_build_all.sh . 
-
 ./shao_build_all.sh -s centos -p ~/local -c -a -r -y -j 4
 ```
