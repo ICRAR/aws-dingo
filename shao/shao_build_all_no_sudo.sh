@@ -362,7 +362,7 @@ build_and_install() {
 
   cmakeline=" ${cmake} .. -DENABLE_TABLELOCKING=OF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts "$@""
 
-  try ${cmake} .. -DENABLE_TABLELOCKING=OFF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts -DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/software/fftw/arm/lib/libfftw3.so -DFFTWF_LIB=/home/software/fftw/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/software/fftw/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/software/fftw/arm/include #"$@"
+  try ${cmake} .. -DENABLE_TABLELOCKING=OFF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts -DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3.so -DFFTWF_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/app/fftw3/3.3.8/arm/include #"$@"
   try make all -j${jobs}
   try make install -j${jobs}
   cd "$sourcedir"
@@ -502,7 +502,7 @@ if [ $install_yandasoft == yes ]; then
   else
     comp_opts="-DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc"
   fi
-  try ${cmake} .. -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $yandasoft_opts -DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/software/fftw/arm/lib/libfftw3.so -DFFTWF_LIB=/home/software/fftw/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/software/fftw/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/software/fftw/arm/include
+  try ${cmake} .. -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $yandasoft_opts -DWCSLIB_LIBRARY=/home/app/wsclib/6.2/arm/lib/libwcs.so -DWCSLIB_INCLUDE_DIR=/home/app/wsclib/6.2/arm/include -DCFITSIO_INCLUDE_DIR=/home/app/cfitsio/arm/include -DCFITSIO_LIBRARY=/home/app/cfitsio/arm/lib/libcfitsio.so -DFFTW_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3.so -DFFTWF_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3f.so -DFFTWL_LIB=/home/app/fftw3/3.3.8/arm/lib/libfftw3l.so -DFFTW_INCLUDES=/home/app/fftw3/3.3.8/arm/include
   try make -j${jobs} all
   try make -j${jobs} install
 fi
