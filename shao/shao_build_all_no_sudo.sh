@@ -96,8 +96,8 @@ use_python3=no
 load_system_dependencies=no
 install_casacore=no
 install_casarest=no
-install_askap_dependencies=yes
-install_yandasoft=yes
+install_askap_dependencies=no
+install_yandasoft=no
 install_extra=no
 clean_askap_dependencies=no
 clean_yandasoft=no
@@ -228,42 +228,30 @@ load_s_dependencies() {
   if [ $system == ubuntu ]; then
     $SUDO apt update
     $SUDO apt install -y \
-      cmake $(# many` \
-        flex bison
-      ) # casacore` \
-    gfortran $(# many` \
-      git
-    ) # many` \
-    g++ $(# many` \
-      libboost-dev
-    ) # casacore` \
-    libboost-filesystem-dev $(# yandasoft` \
-      libboost-program-options-dev
-    ) # base-askap` \
-    libboost-signals-dev $(# base-askap` \
-      libboost-system-dev
-    ) # casarest` \
-    libboost-thread-dev $(# casarest` \
-      libcfitsio-dev
-    ) # casacore` \
-    libffi-dev $(# cryptography (python) -> paramiko -> daliuge` \
-      libfftw3-dev
-    ) # casacore` \
-    libgsl-dev $(# many` \
-      liblog4cxx-dev
-    ) # yandasoft` \
-    libopenblas-dev $(# casacore` \
-      libopenmpi-dev
-    ) # adios, casacore, oskar` \
-    libpython-dev $(# casacore, few python packages` \
-      make
-    ) # many` \
-    patch $(# lofar-common` \
-      python-pip
-    ) # so we can pip install virtualenv` \
-    subversion $(# lofar-blob, lofar-common` \
-      wcslib-dev
-    ) # casacore`
+		    cmake                         `# many` \
+		    flex bison                    `# casacore` \
+		    gfortran                      `# many` \
+		    git                           `# many` \
+		    g++                           `# many` \
+		    libboost-dev                  `# casacore` \
+		    libboost-filesystem-dev       `# yandasoft` \
+		    libboost-program-options-dev  `# base-askap` \
+		    libboost-signals-dev          `# base-askap` \
+		    libboost-system-dev           `# casarest` \
+		    libboost-thread-dev           `# casarest` \
+		    libcfitsio-dev                `# casacore` \
+		    libffi-dev                    `# cryptography (python) -> paramiko -> daliuge` \
+		    libfftw3-dev                  `# casacore` \
+		    libgsl-dev                    `# many` \
+		    liblog4cxx-dev                `# yandasoft` \
+		    libopenblas-dev               `# casacore` \
+		    libopenmpi-dev                `# adios, casacore, oskar` \
+		    libpython-dev                 `# casacore, few python packages` \
+		    make                          `# many` \
+		    patch                         `# lofar-common` \
+		    python-pip                    `# so we can pip install virtualenv` \
+		    subversion                    `# lofar-blob, lofar-common` \
+		    wcslib-dev                    `# casacore`
     $SUDO apt clean
     if [ $compiler == clang ]; then
       $SUDO apt install -y clang
@@ -490,8 +478,6 @@ fi
 
 if [ $install_yandasoft == yes ]; then
   # Go, go, go, yandasoft!
-  git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
-  cd yandasoft
   if [ $casacore_version == master ]; then
     yandasoft_opts+=" -DCMAKE_CXX_FLAGS=-Dcasa=casacore"
   fi

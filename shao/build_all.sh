@@ -34,7 +34,6 @@
 # authors:
 # Original author Rodrigo Tobar
 # Changes to concentrate on the yandasoft build: Stephen Ord
-# SHAO Changes: Kevin Vinsen
 #
 
 print_usage() {
@@ -47,7 +46,7 @@ print_usage() {
 	echo " -j <jobs>       Number of parallel compilation jobs, defaults to 1"
 	echo " -p <prefix>     Prefix for installation, defaults to /usr/local"
 	echo " -w <workdir>    Working directory, defaults to ."
-#SHAO	echo " -S 	       Install system dependencies. "
+	echo " -S 	       Install system dependencies. "
 	echo " -W              Remove the working directory at the end of the build"
 	echo " -C <opts> | -c  Install Casacore + cmake options"
 	echo " -A <opts> | -a  Install ASKAP dependencies + cmake options"
@@ -146,9 +145,9 @@ do
 		o)
 			build_oskar=no
 			;;
-#SHAO		S)
-#SHAO			install_system_dependencies=yes
-#SHAO			;;
+		S)
+			install_system_dependencies=yes
+			;;
 		A)
 			install_askap_dependencies=yes
 			askap_opts="$OPTARG"
@@ -218,9 +217,9 @@ else
 	SUDO=sudo
 fi
 
-#SHAO if [ $system == centos ]; then
-#SHAO 	cmake=cmake3
-#SHAO fi
+if [ $system == centos ]; then
+	cmake=cmake3
+fi
 
 install_s_dependencies() {
 	if [ $system == ubuntu ]; then

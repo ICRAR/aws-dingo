@@ -61,11 +61,29 @@ make Linux
 ```
 cd /o9000/ASKAP
 git clone https://github.com/ICRAR/cloud-dingo.git
+
+git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
+
+cp cloud-dingo/shao/shao_build_all_no_sudo.sh yandasoft
 ```
 
 ### Build YandaSoft
 ```
-cd cloud-dingo/shao 
+cd yandasoft
 
 ./shao_build_all_no_sudo.sh -s centos -p /home/kvinsen/askapsoft -L -C -a -R -y -j 40
 ```
+
+### Copy the measures 
+
+YandaSoft needs this to work as it holds the leap second data and the like.
+
+```
+cd /o9000/ASKAP
+
+wget ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures.ztar
+sudo mkdir -p /o9000/ASKAP/share/casacore/data
+sudo tar -xvf WSRT_Measures.ztar -C /o9000/ASKAP/share/casacore/data
+rm WSRT_Measures.ztar
+```
+
