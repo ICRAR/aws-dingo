@@ -63,17 +63,9 @@ cd /o9000/ASKAP
 git clone https://github.com/ICRAR/cloud-dingo.git
 ```
 
-## Clone YANDASOFT
-
-```
-cd /o9000/ASKAP
-git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
-```
-
 ### Build YandaSoft
 ```
-cp cloud-dingo/shao/shao_build_all.sh yandasoft/ 
+cd cloud-dingo/shao 
 
-cd ~/yandasoft 
-./shao_build_all.sh -s centos -p ~/local -c -a -r -y -j 4
+./shao_build_all_no_sudo.sh -s centos -p /home/kvinsen/askapsoft -L -C -a -R -y -j 40
 ```
