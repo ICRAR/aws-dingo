@@ -37,6 +37,8 @@
 # SHAO Changes: Kevin Vinsen, Baoqiang Lao
 #
 
+set -ex
+
 print_usage() {
   echo "Usage: $0 [options]"
   echo
@@ -365,7 +367,7 @@ build_and_install() {
 
   cmakeline=" ${cmake} .. -DENABLE_TABLELOCKING=OF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $shao_opts "$@""
 
-  try ${cmake} .. -DENABLE_TABLELOCKING=OFF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $shao_opts #"$@"
+  try ${cmake} .. -DENABLE_TABLELOCKING=OFF -DCMAKE_INSTALL_PREFIX="$prefix" $comp_opts $shao_opts "$@"
   try make all -j${jobs}
   try make install -j${jobs}
   cd "$sourcedir"
