@@ -64,7 +64,7 @@ git clone https://github.com/ICRAR/cloud-dingo.git
 
 git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 
-cp cloud-dingo/shao/shao_build_all_no_sudo.sh yandasoft
+ln -s /o9000/ASKAP/cloud-dingo/shao/shao_build_all_no_sudo.sh yandasoft/shao_build_all_no_sudo.sh
 ```
 
 ### Build YandaSoft
