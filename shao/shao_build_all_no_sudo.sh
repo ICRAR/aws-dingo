@@ -266,6 +266,7 @@ load_s_dependencies() {
     module load hdf5/arm-1.10.4   # casacore
     module load lapack/arm-3.8.0  # casacore
     module load python/arm-2.7.14 # casacore
+    module load numpy/arm-1.16.4
     module load wcslib/arm-6.2    # casacore
     #	$SUDO yum --assumeyes install \
     #	    boost-devel    `# casacore` \
