@@ -59,19 +59,19 @@ make Linux
 ## Cloud Dingo
 
 ```
-cd /o9000/ASKAP
+cd /ssd/ASKAP
 git clone https://github.com/ICRAR/cloud-dingo.git
 
 git clone https://bitbucket.csiro.au/scm/askapsdp/yandasoft.git
 
-ln -s /o9000/ASKAP/cloud-dingo/shao/shao_build_all_no_sudo.sh yandasoft/shao_build_all_no_sudo.sh
+ln -s /ssd/ASKAP/cloud-dingo/shao/shao_build_all_no_sudo.sh yandasoft/shao_build_all_no_sudo.sh
 ```
 
 ### Build YandaSoft
 ```
 cd yandasoft
 
-./shao_build_all_no_sudo.sh -s centos -p /home/kvinsen/askapsoft -L -C -a -R -y -j 40
+nohup ./shao_build_all_no_sudo.sh -s centos -p /home/kvinsen/askapsoft -L -c -a -r -y -j 10 &
 ```
 
 ### Copy the measures 
